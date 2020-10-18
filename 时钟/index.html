@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title></title>
+</head>
+<style type="text/css">
+  * {
+    margin: 0;
+    padding: 0;
+  }
+
+  #app {
+    width: 200px;
+    height: 200px;
+    border: 2px solid;
+    border-radius: 50%;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  #app .ico {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background-color: aquamarine;
+    z-index: 99;
+  }
+
+  #app .list {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+  }
+
+  #app .list li {
+    list-style: none;
+    width: 2px;
+    height: 8px;
+    background-color: black;
+    position: absolute;
+    left: 99px;
+    top: 0;
+    transform-origin: center 100px;
+  }
+
+  #app .list li:nth-child(5n) {
+    height: 12px;
+    background-color: red;
+  }
+
+  #app .sec {
+    position: absolute;
+    left: 99px;
+    width: 2px;
+    height: 80px;
+    border-radius: 1px;
+    bottom: 50%;
+    background-color: red;
+    transform-origin: center 80px;
+    transition: 0.5s transform linear;
+  }
+
+  #app .min {
+    position: absolute;
+    left: 98px;
+    width: 4px;
+    height: 65px;
+    border-radius: 2px;
+    bottom: 50%;
+    background-color: gray;
+    transform-origin: center 65px;
+    transition: 0.5s transform linear;
+  }
+
+  #app .hour {
+    position: absolute;
+    left: 97px;
+    width: 6px;
+    height: 45px;
+    border-radius: 3px;
+    bottom: 50%;
+    background-color: black;
+    transform-origin: center 45px;
+    transition: 0.5s transform linear;
+  }
+</style>
+
+<body>
+  <div id="app">
+    <div class="ico"></div>
+    <ul class="list"></ul>
+    <div class="hour"></div>
+    <div class="min"></div>
+    <div class="sec"></div>
+  </div>
+</body>
+<script type="text/javascript">
+  window.onload = function () {
+    //绘制表盘
+    function drawClock() {
+      var listNode = document.querySelector("#app .list");
+      var styleNode = document.createElement("style");
+      for (var i = 0; i < 60; i++) {
+        listNode.innerHTML += "<li></li>";
+        styleNode.innerHTML +=
+          "#app .list li:nth-child(" +
+          (i + 1) +
+          "){transform: rotate(" +
+          (i + 1) * (360 / 60) +
+          "deg);}";
+      }
+      document.head.appendChild(styleNode);
+    }
+    drawClock();
+    //指针运动
+    function pointerMove() {
+      var secNode = document.querySelector("#app .sec");
+      var minNode = document.querySelector("#app .min");
+      var hourNode = document.querySelector("#app .hour");
+      var date = new Date();
+      secNode.sec = (date.getSeconds() * 360) / 60;
+      minNode.min = ((date.getMinutes() + date.getSeconds() / 60) * 360) / 60;
+      hourNode.hour = ((date.getHours() + date.getMinutes() / 60) * 360) / 12;
+      auto();
+      setInterval(auto, 1000);
+      function auto() {
+        var sec = secNode.sec + 6;
+        var min = minNode.min + 360 / (60 * 60);
+        var hour = hourNode.hour + 360 / (60 * 60 * 12);
+        console.log(sec);
+        console.log(min);
+        console.log(hour);
+        secNode.style.transform = "rotate(" + sec + "deg)";
+        minNode.style.transform = "rotate(" + min + "deg)";
+        hourNode.style.transform = "rotate(" + hour + "deg)";
+
+        secNode.sec = sec;
+        minNode.min = min;
+        hourNode.hour = hour;
+      }
+    }
+    pointerMove();
+  };
+</script>
+
+</html>
