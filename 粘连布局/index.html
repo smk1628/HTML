@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>黏连布局</title>
+  </head>
+  <style>
+    * {
+      padding: 0;
+      margin: 0;
+    }
+    html,
+    body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+    }
+    #wrap {
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+    }
+    #wrap .footer {
+      height: 50px;
+      background-color: pink;
+      line-height: 50px;
+      text-align: center;
+    }
+    #wrap .main {
+      min-height: 100%;
+      text-align: center;
+    }
+    #wrap .container {
+      padding-bottom: 50px;
+    }
+    #wrap .footer {
+      margin-top: -50px;
+    }
+  </style>
+  <body>
+    <div id="wrap">
+      <div class="main">
+        <div class="container">
+          container<br />container<br />container<br />container<br />container<br />container<br />container<br />
+          container<br />container<br />container<br />container<br />container<br />container<br />container<br />
+          <!-- container<br />container<br />container<br />container<br />container<br />container<br />container<br />
+          container<br />container<br />container<br />container<br />container<br />container<br />container<br />
+          container<br />container<br />container<br />container<br />container<br />container<br />container<br />
+          container<br />container<br />container<br />container<br />container<br />container<br />container<br /> -->
+        </div>
+      </div>
+      <div class="footer">
+        footer
+      </div>
+    </div>
+  </body>
+</html>

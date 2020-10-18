@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<style type="text/css">
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		#warp,#inner1,#inner2,#app {
+			width:100px;
+			height: 100px;
+		}
+		#warp {
+			margin: 20px;
+			height: 2000px;
+			background-color: red;
+			position: relative;
+		}
+		#inner1{
+			background-color: #0000FF;
+			position: absolute;
+			left: 50px;
+			top: 50px;
+			border: 5px solid cadetblue;
+		}
+		#inner2{
+			padding: 20px;
+			background-color: #FFFF00;
+			position: absolute;
+			left: 50px;
+			top: 50px;
+			border: 5px solid pink;
+		}
+		#app{
+			margin: 10px 20px;
+			background-color: black;
+			position: absolute;
+			left: 50px;
+			top: 50px;
+		}
+	</style>
+	<body>
+		<div id="warp">
+			<div id="inner1">
+				<div id="inner2">
+					<div id="app">
+						
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript">
+		window.onload = function(){
+			function getAbsoluteDis(node){
+				var x,y,firstNode;
+				x = 0;
+				y = 0;
+				firstNode = node;
+				while(node){
+					if(node === firstNode){
+						x += node.offsetLeft;
+						y += node.offsetTop;
+					}else{
+						x += node.offsetLeft + parseInt(window.getComputedStyle(node).borderLeft);
+						y += node.offsetTop + parseInt(window.getComputedStyle(node).borderTop);
+					}
+					node = node.offsetParent;
+				}
+				return {
+					x:x,
+					y:y
+				}
+				
+			}
+			function getReletiveDis(node){
+			        var x,y,firstNode;
+			        var scrollX = document.documentElement.scrollLeft || document.body.scrollLeft;
+			        var scrollY = document.documentElement.scrollTop || document.body.scrollTop;
+			        x = 0;
+			        y = 0;
+			        firstNode = node;
+			        while(node){
+			        	if(node === firstNode){
+			        		x += node.offsetLeft;
+			        		y += node.offsetTop;
+			        	}else{
+			        		x += node.offsetLeft + parseInt(window.getComputedStyle(node).borderLeft);
+			        		y += node.offsetTop + parseInt(window.getComputedStyle(node).borderTop);
+			        	}
+			        	node = node.offsetParent;
+			        }
+			        return {
+			        	x:x-scrollX,
+			        	y:y-scrollY
+			        }
+			        
+			    }
+			// var appNode = document.getElementById("app");
+			// console.log(getAbsoluteDis(appNode));
+			 var appNode = document.getElementById("app");
+			 console.log(getReletiveDis(appNode));
+		}
+	</script>
+</html>

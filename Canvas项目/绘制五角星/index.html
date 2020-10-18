@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>五角星</title>
+</head>
+<style>
+    #myCanvas {
+        display: block;
+        margin: 0 auto;
+        background-color: aqua;
+
+    }
+</style>
+
+<body>
+    <canvas id="myCanvas" width="600px" height="400px"></canvas>
+</body>
+<script>
+    (function () {
+
+        function wujiaoxing(r1, r2, x, y) {//r1 r2 为大小半径 x,y为中心点
+            var myCanvas = document.querySelector('#myCanvas');
+            //开启2d画笔
+            var ctx = myCanvas.getContext('2d');
+            //开启路径
+            ctx.beginPath();
+            for (var i = 0; i < 5; i++) {
+                //计算角度
+                var angle1 = (18 + 72 * i) / 180 * Math.PI;
+                var angle2 = (54 + 72 * i) / 180 * Math.PI;
+                //绘制连接点
+                ctx.lineTo(x + Math.cos(angle1) * r1, y - Math.sin(angle1) * r1);
+                ctx.lineTo(x + Math.cos(angle2) * r2, y - Math.sin(angle2) * r2);
+            }
+
+            //闭合路径
+            ctx.closePath();
+            //描边
+            ctx.stroke();
+        }
+        wujiaoxing(100, 38, 300, 200);
+
+    })()
+</script>
+
+</html>

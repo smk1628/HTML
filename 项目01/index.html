@@ -1,0 +1,419 @@
+<!--
+ * @Author: your name
+ * @Date: 2020-07-25 09:03:33
+ * @LastEditTime: 2020-07-29 18:44:38
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \html5\项目01\index.html
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--使用最高级标准模式渲染页面, 用于IE浏览器-->
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <!--采用webkit内核渲染， 用于国产双内核浏览器-->
+    <meta name="renderer" content="webkit">
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/style.css">
+    <title>项目</title>
+</head>
+
+<body>
+    <div id="wrapper">
+        <!-- 开机动画 -->
+        <div id="bootMask">
+            <div class="boot-up"></div>
+            <div class="boot-down"></div>
+            <div class="boot-progress"></div>
+        </div>
+        <!-- 头部 -->
+        <div id="header">
+            <div class="container clearfix">
+                <h1 class="logo fl">
+                    <img src="image/logo.png" alt="logo">
+                </h1>
+                <div class="audio fl">
+                    <audio src="./image/audio.mp3"></audio>
+                </div>
+                <div class="nav fr">
+                    <ul class="nav-list">
+                        <li class="nav-item">
+                            <a href="javascript:;">
+                                <span class="nav-item-default">
+                                    <img src="image/home.png" alt="">
+                                </span>
+                                <span class="nav-item-active">
+                                    <img src="image/home_actived.png" alt="">
+                                </span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="javascript:;">
+                                <span class="nav-item-default">课程</span>
+                                <span class="nav-item-active">课程</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="javascript:;">
+                                <span class="nav-item-default">工作</span>
+                                <span class="nav-item-active">工作</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="javascript:;">
+                                <span class="nav-item-default">关于</span>
+                                <span class="nav-item-active">关于</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="javascript:;">
+                                <span class="nav-item-default">团队</span>
+                                <span class="nav-item-active">团队</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+            <!-- 小三角 -->
+            <div class="arrow">
+
+            </div>
+        </div>
+        <!-- 侧边栏 -->
+        <div id="nav-menu">
+            <span class="menu-item"></span>
+            <span class="menu-item"></span>
+            <span class="menu-item"></span>
+            <span class="menu-item"></span>
+            <span class="menu-item"></span>
+        </div>
+        <!-- 主体 -->
+        <div id="main">
+            <div class="containt-list">
+                <div class="containt-item home">
+                    <div class="containt-inner" style="background-color: transparent;">
+                        <div class="play-wrapper">
+                            <div class="play-list">
+                                <div class="play-item">
+                                    <h3>First Layer</h3>
+                                </div>
+                                <div class="play-item ">
+                                    <h3>Scend Layer</h3>
+                                </div>
+                                <div class="play-item">
+                                    <h3>Three Layer</h3>
+                                </div>
+                                <div class="play-item">
+                                    <h3>Fourth Layer</h3>
+                                </div>
+                            </div>
+                            <div class="icon-list">
+                                <span class="icon-item"></span>
+                                <span class="icon-item"></span>
+                                <span class="icon-item"></span>
+                                <span class="icon-item"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="containt-item objects">
+                    <div class="containt-inner">
+                        <div class="obj1">
+                            <h3 class="common-title">EINIGE</h3>
+                            <h3 class="common-title">UNSERER</h3>
+                            <h3 class="common-title">KUNDEN</h3>
+                        </div>
+                        <div class="obj2">
+                            <p class="common-text">
+                                Das Kundenvertrauen in unsere Kompetenz ist die notwendige Basis einer erfolgreichen
+                                Zusammenarbeit, gleichzeitig aber auch das größte Lob, das man uns entgegenbringen kann.
+                                Diese und viele weitere große und kleine Kunden vertrauen uns seit Jahren, was uns stolz
+                                macht, und dafür sagen wir an dieser Stelle einfach mal.
+                            </p>
+                        </div>
+                        <div class="obj3">
+                            <ul class="obj-list clearfix">
+                                <li class="obj-item">
+                                    <div class="obj-inner">
+                                        <div class="front">
+                                            <img src="./image/html5.png" alt="">
+                                        </div>
+                                        <div class="back">
+                                            <span>HTML5</span>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="obj-item">
+                                    <div class="obj-inner">
+                                        <div class="front">
+                                            <img src="./image/java.png" alt="">
+                                        </div>
+                                        <div class="back">
+                                            <span>JAVA</span>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="obj-item">
+                                    <div class="obj-inner">
+                                        <div class="front">
+                                            <img src="./image/php.png" alt="">
+                                        </div>
+                                        <div class="back">
+                                            <span>PHP</span>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="obj-item">
+                                    <div class="obj-inner">
+                                        <div class="front">
+                                            <img src="./image/python.png" alt="">
+                                        </div>
+                                        <div class=" back">
+                                            <span>Python</span>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="obj-item">
+                                    <div class="obj-inner">
+                                        <div class="front">
+                                            <img src="./image/html5.png" alt="">
+                                        </div>
+                                        <div class="back">
+                                            <span>HTML5</span>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="obj-item">
+                                    <div class="obj-inner">
+                                        <div class="front">
+                                            <img src="./image/java.png" alt="">
+                                        </div>
+                                        <div class="back">
+                                            <span>JAVA</span>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="obj-item">
+                                    <div class="obj-inner">
+                                        <div class="front">
+                                            <img src="./image/php.png" alt="">
+                                        </div>
+                                        <div class="back">
+                                            <span>PHP</span>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="obj-item">
+                                    <div class="obj-inner">
+                                        <div class="front">
+                                            <img src="./image/python.png" alt="">
+                                        </div>
+                                        <div class=" back">
+                                            <span>Python</span>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="obj-item">
+                                    <div class="obj-inner">
+                                        <div class="front">
+                                            <img src="./image/html5.png" alt="">
+                                        </div>
+                                        <div class="back">
+                                            <span>HTML5</span>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="obj-item">
+                                    <div class="obj-inner">
+                                        <div class="front">
+                                            <img src="./image/java.png" alt="">
+                                        </div>
+                                        <div class="back">
+                                            <span>JAVA</span>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="obj-item">
+                                    <div class="obj-inner">
+                                        <div class="front">
+                                            <img src="./image/php.png" alt="">
+                                        </div>
+                                        <div class="back">
+                                            <span>PHP</span>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="obj-item">
+                                    <div class="obj-inner">
+                                        <div class="front">
+                                            <img src="./image/python.png" alt="">
+                                        </div>
+                                        <div class=" back">
+                                            <span>Python</span>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                            <div class="plus-bg">
+                                <div class="plus"></div>
+                                <div class="plus"></div>
+                                <div class="plus"></div>
+                                <div class="plus"></div>
+                                <div class="plus"></div>
+                            </div>
+                        </div>
+                        <div class="plane1"></div>
+                        <div class="plane2"></div>
+                        <div class="plane3"></div>
+                    </div>
+                </div>
+                <div class="containt-item works">
+                    <div class="containt-inner">
+                        <div class="work1">
+                            <h3 class="common-title">EINBLICK</h3>
+                            <h3 class="common-title">ERKENNTNIS</h3>
+                            <h3 class="common-title">ERGEBNIS</h3>
+                        </div>
+                        <div class="work2">
+                            <ul class="work-list">
+                                <li class="work-item">
+                                    <img src="./image/worksimg1.jpg" alt="">
+                                    <div class="mask">
+                                        <div class="text">一江春水向东流</div>
+                                        <div class="zoom-icon">
+
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="work-item">
+                                    <img src="./image/worksimg2.jpg" alt="">
+                                    <div class="mask">
+                                        <div class="text">一江春水向东流</div>
+                                        <div class="zoom-icon">
+
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="work-item">
+                                    <img src="./image/worksimg3.jpg" alt="">
+                                    <div class="mask">
+                                        <div class="text">一江春水向东流</div>
+                                        <div class="zoom-icon">
+
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="work-item">
+                                    <img src="./image/worksimg4.jpg" alt="">
+                                    <div class="mask">
+                                        <div class="text">一江春水向东流</div>
+                                        <div class="zoom-icon">
+
+                                        </div>
+                                    </div>
+                                </li>
+
+                            </ul>
+                        </div>
+                        <div class="work3">
+                            <div class="robot"></div>
+                        </div>
+                        <div class="pencel1"></div>
+                        <div class="pencel2"></div>
+                        <div class="pencel3"></div>
+                    </div>
+                </div>
+                <div class="containt-item about">
+                    <div class="containt-inner">
+                        <div class="title">
+                            <span>EINBLICK</span>
+                            <span>ERKENNTNIS</span>
+                            <span>ERGEBNIS</span>
+                        </div>
+                        <div class="text">
+                            <span class="common-text">Der bunte Medienmix ist die Faszination die uns antreibt und das,
+                                was man an uns schätzt. Von A bis Z und von vorne bis hinten nehmen
+                                wir Ihr Projekt unter unsere Fittiche und lassen es zu etwas
+                                Großartigem heranwachsen.
+                            </span>
+                        </div>
+                        <div class="about-img">
+                            <div class="img-item">
+                                <img class="item" src="./image/about2.jpg">
+                                <div class="mask">
+                                    <ul class="mask-item clearfix">
+                                        <li>
+                                            <img src="./image/about1.jpg">
+                                        </li>
+                                        <li>
+                                            <img src="./image/about1.jpg">
+                                        </li>
+                                        <li>
+                                            <img src="./image/about1.jpg">
+                                        </li>
+                                        <li>
+                                            <img src="./image/about1.jpg">
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="img-item">
+                                <img class="item" src="./image/about4.jpg" alt="">
+                                <div class="mask">
+                                    <ul class="mask-item clearfix">
+                                        <li>
+                                            <img src="./image/about3.jpg" alt="">
+                                        </li>
+                                        <li>
+                                            <img src="./image/about3.jpg" alt="">
+                                        </li>
+                                        <li>
+                                            <img src="./image/about3.jpg" alt="">
+                                        </li>
+                                        <li>
+                                            <img src="./image/about3.jpg" alt="">
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="line"></div>
+                </div>
+                <div class="containt-item team">
+                    <div class="containt-inner">
+                        <div class="top">
+                            <div class="title fl">
+                                <h3 class="common-title">WIR SIND</h3>
+                                <h3 class="common-title">VOXELAIR</h3>
+                            </div>
+                            <div class="text fr">
+                                <p class="common-text">Wir sind seit 2002 eine Full-Service-Werbeagentur mit Stammsitz
+                                    in Heimsheim, zwischen Stuttgart und Karlsruhe.</p>
+                                <p class="common-text">Über 60 Jahre Erfahrung vereinen das gesamte VoxelAir-Team. Dabei
+                                    hat jedes Voxel neben professionellem Allroundwissen auch sein ganz spezielles
+                                    Gebiet, um selbst die individuellsten Kundenwünsche schnell und kompetent
+                                    umzusetzen.</p>
+                            </div>
+                        </div>
+                        <ul class="list">
+                            <li class="item"></li>
+                            <li class="item"></li>
+                            <li class="item"></li>
+                            <li class="item"></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="js/index.js"></script>
+<script>
+</script>
+
+</html>

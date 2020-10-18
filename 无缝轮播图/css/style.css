@@ -1,0 +1,47 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+html,
+body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+#wrapper {
+  width: 100%;
+  height: 100%;
+}
+#wrapper .app {
+  position: relative;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 800px;
+  height: 600px;
+  overflow: hidden;
+  border: 1px solid;
+}
+#wrapper .banner-list {
+  position: absolute;
+  top: 100px;
+  left: 0px;
+  height: 400px;
+  width: 4000px;
+}
+#wrapper .banner-list.transition {
+  transition: 1s;
+}
+#wrapper .banner-item {
+  width: 650px;
+  height: 400px;
+  background-color: aqua;
+  padding: 0 4px;
+  float: left;
+}
+#wrapper .banner-item img {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}

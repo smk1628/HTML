@@ -1,0 +1,176 @@
+* {
+  margin: 0;
+  padding: 0;
+  outline: none;
+}
+html,
+body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+#player {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background-color: #383838;
+  color: #fff;
+}
+#player #video {
+  height: 300px;
+  flex: auto;
+}
+#player #control {
+  flex: none;
+  height: 25px;
+  background: #2a2a2a;
+  display: flex;
+}
+#player #control .btns {
+  display: flex;
+  width: 55px;
+  height: 25px;
+  margin: 0 8px 0 8px;
+  justify-content: space-between;
+  align-items: center;
+}
+#player #control .btns .playbtn:hover {
+  color: rgba(255, 255, 255, 0.7);
+}
+#player #control .btns .stop:hover {
+  color: rgba(255, 255, 255, 0.7);
+}
+#player #control .progress {
+  position: relative;
+  height: 25px;
+  flex: auto;
+}
+#player #control .progress .progress-gray {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  margin-top: auto;
+  margin-bottom: auto;
+  width: 100%;
+  height: 3px;
+  background-color: #737373;
+}
+#player #control .progress .progress-gray:hover {
+  cursor: pointer;
+}
+#player #control .progress .progress-perload {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  margin-top: auto;
+  margin-bottom: auto;
+  width: 0px;
+  height: 3px;
+  background-color: #9e9e9e;
+}
+#player #control .progress .progress-perload:hover {
+  cursor: pointer;
+}
+#player #control .progress .progress-pink {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  margin-top: auto;
+  margin-bottom: auto;
+  width: 0px;
+  height: 3px;
+  background-color: deeppink;
+}
+#player #control .progress .progress-pink:hover {
+  cursor: pointer;
+}
+#player #control .progress .progress-slider {
+  position: absolute;
+  left: 0px;
+  top: 0;
+  bottom: 0;
+  margin-top: auto;
+  margin-bottom: auto;
+  width: 9px;
+  height: 7px;
+  background-color: #fff;
+  border-radius: 2px;
+}
+#player #control .progress .progress-slider:hover {
+  cursor: pointer;
+}
+#player #control .tools {
+  display: flex;
+  width: 230px;
+  height: 25px;
+}
+#player #control .tools .time {
+  width: 120px;
+  font-size: 12px;
+  color: #fff;
+  line-height: 25px;
+  text-align: center;
+}
+#player #control .tools .volumn {
+  display: flex;
+  width: 80px;
+  align-items: center;
+}
+#player #control .tools .volumn .volumn-btn {
+  width: 20px;
+}
+#player #control .tools .volumn .volumn-progress {
+  position: relative;
+  width: 60px;
+  height: 25px;
+  flex: auto;
+}
+#player #control .tools .volumn .volumn-progress .progress-gray {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  margin-top: auto;
+  margin-bottom: auto;
+  width: 100%;
+  height: 3px;
+  background-color: #737373;
+}
+#player #control .tools .volumn .volumn-progress .progress-pink {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  margin-top: auto;
+  margin-bottom: auto;
+  width: 100%;
+  height: 3px;
+  background-color: deeppink;
+}
+#player #control .tools .volumn .volumn-progress .progress-slider {
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin-top: auto;
+  margin-bottom: auto;
+  width: 9px;
+  height: 7px;
+  background-color: #fff;
+  border-radius: 2px;
+}
+#player #control .tools .fullscreen {
+  display: flex;
+  width: 30px;
+}
+#player #control .tools .fullscreen span {
+  margin: auto;
+  width: 16px;
+  height: 16px;
+}
+#player #control .tools .fullscreen .iconfont {
+  font-size: 16px !important;
+}

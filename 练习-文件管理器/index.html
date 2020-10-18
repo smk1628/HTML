@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>文件夹选框</title>
+		<link rel="stylesheet" type="text/css" href="./css/reset.css" />
+		<link rel="stylesheet" type="text/css" href="./css/index.css" />
+		<link rel="stylesheet" type="text/css" href="./css/iconfont.css" />
+	</head>
+	<body>
+		<div id="warp">
+			<!-- 文件夹布局 -->
+			<div id="fileApp">
+				<div class="head">
+					<div class="move">
+						<i class="iconfont icon-move"></i>
+						<span>移动到</span>
+					</div>
+					<div class="rename">
+						<i class="iconfont icon-rename"></i>
+						<span>重命名</span>
+					</div>
+					<div class="del">
+						<i class="iconfont icon-del"></i>
+						<span>删除</span>
+					</div>
+					<div class="create">
+						<i class="iconfont icon-create"></i>
+						<span>新建文件夹</span>
+					</div>
+					<div class="refresh">
+						<i class="iconfont icon-refresh"></i>
+						<span>刷新</span>
+					</div>
+				</div>
+				<div class="nav">
+					<div>
+						<span class="cheackAll "></span>
+					</div>
+				</div>
+				<div class="main">
+					<!-- <div class="fileBox">
+						<div class="cheack">
+							
+						</div>
+						<div class="img">
+							
+						</div>
+						<span>我的文档</span>
+						<input type="text" class="renameText" value="我的文档" />
+						
+					</div> -->
+				</div>
+			</div>
+		</div>
+
+	</body>
+	<script type="text/javascript">
+		window.onload = function() {
+			document.addEventListener("mousedown", function(ev) {
+				//让输入框失去焦点
+				var inputNode = document.querySelectorAll("#fileApp .main input");
+				inputNode.forEach(function(item) {
+					item.blur();
+				})
+				// 消除全局默认行为
+				ev = ev || event;
+				ev.preventDefault();
+				//所有输入框不用阻止默认行为
+				var inputNodes = document.querySelectorAll("#fileApp .main input");
+				inputNodes.forEach(function(item) {
+					item.addEventListener("mousedown", function(ev) {
+						ev = ev || event;
+						ev.stopPropagation();
+					})
+				})
+
+			})
+			//新增
+			function addFile() {
+				var cheackAllNode = document.querySelector("#fileApp .nav .cheackAll");
+				var createNode = document.querySelector("#fileApp .head .create");
+				var mainNode = document.querySelector("#fileApp .main");
+				createNode.onclick = function() {
+					var fileNode = createFile();
+					mainNode.appendChild(fileNode);
+					//添加单选方案
+					var cheackBox = document.querySelectorAll(".cheack");
+					cheackBox = Array.prototype.slice.call(cheackBox);
+					cheackBox.forEach(function(item) {
+						item.onclick = function() {
+							item.parentNode.classList.toggle("actived");
+							//同步全选按钮
+							var fileNodes = document.querySelectorAll("#fileApp .main .fileBox");
+							fileNodes = Array.prototype.slice.call(fileNodes);
+							//flag决定全选按钮是否被选中
+							var flag = fileNodes.every(function(item) {
+								return item.classList.contains("actived");
+							})
+							flag ? cheackAllNode.classList.add("cheackAllActive") : cheackAllNode.classList.remove("cheackAllActive")
+						}
+					})
+					//同步全选删除
+					cheackAllNode.classList.remove("cheackAllActive")
+				}
+
+				function createFile() {
+					var fileNode = document.createElement("div");
+					fileNode.className = "fileBox";
+					fileNode.innerHTML = '<div class="cheack"></div>' +
+						'<div class="img"></div>' +
+						'<span>我的文档</span>' +
+						'<input type="text" class="renameText" value="我的文档" />';
+					return fileNode;
+				}
+			}
+			addFile();
+			//全选 & 全不选
+			function cheackAll() {
+				var cheackAllNode = document.querySelector("#fileApp .nav .cheackAll");
+				cheackAllNode.onclick = function() {
+					var fileNodes = document.querySelectorAll("#fileApp .main .fileBox");
+					fileNodes = Array.prototype.slice.call(fileNodes);
+					if (fileNodes.length > 0) {
+						cheackAllNode.classList.toggle("cheackAllActive");
+						if (cheackAllNode.classList.contains("cheackAllActive")) {
+							//全选
+							fileNodes.forEach(function(item) {
+								item.classList.add("actived");
+							})
+						} else {
+							//全不选
+							fileNodes.forEach(function(item) {
+								item.classList.remove("actived");
+							})
+						}
+					}
+				}
+			}
+			cheackAll();
+			//删除
+			function del() {
+				var delNode = document.querySelector("#fileApp .head .del");
+				delNode.onclick = function() {
+					var fileNodes = document.querySelectorAll("#fileApp .main .fileBox");
+					fileNodes.forEach(function(item) {
+						if (item.classList.contains("actived")) {
+							item.remove();
+						}
+					})
+					//同步全选删除
+					document.querySelector("#fileApp .nav .cheackAll").classList.remove("cheackAllActive");
+
+				}
+			}
+			del()
+			//重命名
+			function rename() {
+				var renameNode = document.querySelector("#fileApp .head .rename");
+				renameNode.onclick = function() {
+
+					//获取选中的元素
+					var selectNodes = document.querySelectorAll("#fileApp .main .actived");
+					if (selectNodes.length == 1) {
+						selectNode = selectNodes[0];
+						var renameTextNode = selectNode.querySelector(".renameText");
+						var TextNode = selectNode.querySelector("span");
+						//console.log(renameTextNode,TextNode);
+						renameTextNode.style.display = "block";
+						renameTextNode.focus();
+						renameTextNode.onblur = function() {
+							renameTextNode.value = textFilter(renameTextNode.value)
+							renameTextNode.value == "" ? "" : TextNode.innerText = renameTextNode.value;
+
+							renameTextNode.style.display = "none";
+						}
+					} else {
+						console.log("请选择一个元素");
+					}
+
+					function textFilter(string) {
+						var arr = string.split(' ');
+						string = "";
+						for (var i = 0; i < arr.length; i++) {
+							string += arr[i];
+						}
+						return string;
+					}
+				}
+			}
+			rename();
+		}
+	</script>
+</html>

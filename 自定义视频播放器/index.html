@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/iconfont.css">
+    <title>自定义视频播放器</title>
+</head>
+
+<body>
+    <div id="player">
+        <video id="video" src="http://smk1628.top/video/eb048d7839442d0.mp4" preload="auto"></video>
+        <div id="control">
+            <div class="btns">
+                <span class="playbtn iconfont icon-bofang"></span>
+                <span class="stop iconfont icon-tingzhi"></span>
+            </div>
+            <div class="progress">
+                <div class="progress-gray"></div>
+                <div class="progress-perload"></div>
+                <div class="progress-pink"></div>
+                <div class="progress-slider"></div>
+            </div>
+            <div class="tools">
+                <div class="time">
+                    <span class="now">00:00:21</span>
+                    /
+                    <span class="all">00:03:58</span>
+                </div>
+                <div class="volumn">
+                    <div class="volumn-btn">
+                        <span class="iconfont icon-test"></span>
+                    </div>
+                    <div class="volumn-progress">
+                        <div class="progress-gray"></div>
+                        <div class="progress-pink"></div>
+                        <div class="progress-slider"></div>
+                    </div>
+                </div>
+                <div class="fullscreen">
+                    <span class="iconfont icon-quanping"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    (function () {
+        //获取节点
+        var playerNode = document.querySelector('#player');
+        var playbtnNode = document.querySelector('.btns .playbtn');
+        var stopbtnNode = document.querySelector('.btns .stop');
+        var progressNode = document.querySelector('.progress');
+        var progressGrayNode = document.querySelector('.progress .progress-gray')
+        var preloadNode = document.querySelector('.progress .progress-perload');
+        var progressPlayNode = document.querySelector('.progress .progress-pink');
+        var progressSliderNode = document.querySelector('.progress .progress-slider');
+        var nowTimeNode = document.querySelector('.tools .time .now');
+        var allTimeNode = document.querySelector('.tools .time .all');
+        var volumnBtnNode = document.querySelector('.volumn-btn');
+        var volProgressSliderNode = document.querySelector('.volumn-progress .progress-slider');
+        var volProgressPinkNode = document.querySelector('.volumn-progress .progress-pink');
+        var volProgressNode = document.querySelector('.volumn-progress');
+        var fullscreenBtnNode = document.querySelector('.fullscreen').children[0];
+        var isFullScreen = false;
+        //默认声音大小 0-1
+        var volumneSize = 0.5;
+        //设置默认音量位置
+        function volDefult() {
+            //计算进度条最大可设置值
+            var maxWidth = volProgressNode.clientWidth - volProgressSliderNode.offsetWidth;
+            //计算滑块位置
+            video.volume = volumneSize
+            var left = maxWidth * video.volume;
+            volProgressSliderNode.style.left = volProgressPinkNode.style.width = left + 'px';
+        }
+        //volume
+        volDefult();
+
+        /************************视频事件***************************************/
+        //监听视频结束事件
+        video.addEventListener('ended', function () {
+            video.pause();
+            playbtnNode.classList.remove('icon-zanting');
+            playbtnNode.classList.add('icon-bofang');
+
+        })
+        //给视频添加监听事件
+        video.addEventListener('timeupdate', function () {
+            //time
+            setTime();
+            //缓冲进度条
+            perloadProgress();
+            //播放进度条
+            //计算比例
+            var scale = video.currentTime / video.duration;
+            //计算进度条最大可设置值
+            var maxWidth = progressNode.clientWidth - progressSliderNode.offsetWidth;
+            //进度条位置
+            var left = maxWidth * scale;
+            //设置进度条
+            progressSliderNode.style.left = progressPlayNode.style.width = left + 'px';
+
+        })
+
+        //给播放按钮添加监听事件
+        playbtnNode.addEventListener('click', function () {
+            //控制播放器播放暂停
+            if (video.paused) {
+                this.classList.remove('icon-bofang');
+                this.classList.add('icon-zanting');
+                video.play();
+            } else {
+                this.classList.remove('icon-zanting');
+                this.classList.add('icon-bofang');
+                video.pause();
+            }
+            setTime();
+        })
+
+        //给停止按钮添加监听事件
+        stopbtnNode.addEventListener('click', function () {
+            video.pause();
+            playbtnNode.classList.remove('icon-zanting');
+            playbtnNode.classList.add('icon-bofang');
+
+            video.currentTime = 0;//视频从头开始
+        })
+
+        //缓冲进度条 perloadProgress
+        function perloadProgress() {
+            if (video.duration > 0) {
+                for (var i = 0; i < video.buffered.length; i++) {
+                    // 寻找当前时间之后最近的点
+                    if (video.buffered.start(video.buffered.length - 1 - i) < video.currentTime) {
+                        let bufferedLength = video.buffered.end(video.buffered.length - 1 - i) / video.duration;
+                        preloadNode.style.width = bufferedLength * progressNode.clientWidth + 'px';
+                        break;
+                    }
+                }
+            }
+        }
+
+        //给滑块添加按下监听事件
+        progressSliderNode.addEventListener('mousedown', function (event) {
+            //消除浏览器默认行为
+            event.preventDefault();
+            //获取滑块点击的位置
+            this.eleLeft = event.offsetX;
+            //添加滑动监听事件
+            document.addEventListener('mousemove', progressSliderMove)
+        })
+        //给滑块添加松开监听事件
+        document.addEventListener('mouseup', function () {
+            this.removeEventListener('mousemove', progressSliderMove);
+
+        })
+
+        //给进度条增加点击监听事件
+        progressNode.addEventListener('click', function (event) {
+            //计算进度条最大可设置值
+            var maxWidth = progressNode.clientWidth - progressSliderNode.offsetWidth;
+            //计算滑块位置
+            var left = event.clientX - progressNode.offsetLeft;
+            if (left < 0) {
+                left = 0;
+            } else if (left > maxWidth) {
+                left = maxWidth;
+            }
+            setSlider(left, maxWidth);
+
+        })
+
+
+
+
+        /************************音量事件***************************************/
+
+        //给静音按钮添加监听事件
+        volumnBtnNode.addEventListener('click', function () {
+            if (video.muted || this.children[0].classList.contains('icon-test')) {
+                this.children[0].classList.remove('icon-test');
+                this.children[0].classList.add('icon-jingyin');
+                video.volume = 0;
+                volProgressSliderNode.style.left = volProgressPinkNode.style.width = 0 + 'px';
+            } else {
+                this.children[0].classList.remove('icon-jingyin');
+                this.children[0].classList.add('icon-test');
+                video.volume = volumneSize;
+                //计算进度条最大可设置值
+                var maxWidth = volProgressNode.clientWidth - volProgressSliderNode.offsetWidth;
+                //计算滑块位置
+                var left = maxWidth * video.volume;
+                volProgressSliderNode.style.left = volProgressPinkNode.style.width = left + 'px';
+            }
+        })
+
+        //给音量滑块添加监听事件
+        volProgressSliderNode.addEventListener('mousedown', function (event) {
+            //消除浏览器默认行为
+            event.preventDefault();
+            //获取滑块点击的位置
+            this.eleLeft = event.offsetX;
+            //添加滑动监听事件
+            document.addEventListener('mousemove', volumeSlideMove)
+        })
+
+        //给音量滑块添加松开监听事件
+        document.addEventListener('mouseup', function () {
+            this.removeEventListener('mousemove', volumeSlideMove);
+
+        })
+
+        //给音量进度条增加点击监听事件
+        volProgressNode.addEventListener('click', function (event) {
+            //计算进度条最大可设置值
+            var maxWidth = volProgressNode.clientWidth - volProgressSliderNode.offsetWidth;
+            //计算滑块位置
+            var left = event.clientX - volProgressNode.offsetLeft;
+            if (left < 0) {
+                left = 0;
+            } else if (left > maxWidth) {
+                left = maxWidth;
+            }
+            setVolSlider(left, maxWidth);
+
+        })
+
+
+
+        /************************全屏事件***************************************/
+        //监听全屏按钮
+        fullscreenBtnNode.addEventListener('click', function () {
+            if (isFullScreen || fullscreenBtnNode.classList.contains('icon-quanping')) {
+                this.classList.remove('icon-quanping');
+                this.classList.add('icon-suoxiao');
+            } else {
+                this.classList.remove('icon-suoxiao');
+                this.classList.add('icon-quanping');
+            }
+            //判断是否全屏 并实现全屏
+            if (isFullScreen) {
+                isFullScreen = false
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                }
+                else if (document.mozCancelFullScreen) {
+                    document.mozCancelFullScreen();
+                }
+                else if (document.webkitCancelFullScreen) {
+                    document.webkitCancelFullScreen();
+                }
+                else if (document.msExitFullscreen) {
+                    document.msExitFullscreen();
+                }
+            } else {
+                isFullScreen = true
+                var docElm = document.documentElement;
+                //W3C  
+                if (docElm.requestFullscreen) {
+                    docElm.requestFullscreen();
+                }
+                //FireFox  
+                else if (docElm.mozRequestFullScreen) {
+                    docElm.mozRequestFullScreen();
+                }
+                //Chrome等  
+                else if (docElm.webkitRequestFullScreen) {
+                    docElm.webkitRequestFullScreen();
+                }
+                //IE11
+                else if (docElm.msRequestFullscreen) {
+                    docElm.msRequestFullscreen();
+                }
+            }
+        })
+
+
+        /**
+         * 监听全屏状态变化
+         */
+        document.addEventListener('fullscreenchange', fullScreenChangeFn);
+        document.addEventListener('webkitfullscreenchange', fullScreenChangeFn);
+        document.addEventListener('mozfullscreenchange', fullScreenChangeFn);
+        document.addEventListener('msfullscreenchange', fullScreenChangeFn);  // IE下无效果然
+
+        /**
+         * 监听屏幕变化的函数
+         */
+        function fullScreenChangeFn() {
+            /*
+            * 获取被全屏的元素，没有返回null
+            * document.fullscreenElement
+            * document.webkitFullscreenElement
+            * document.mozFullScreenElement
+            * 
+            * 返回是否全屏·布尔值
+            * document.webkitIsFullScreen
+            * document.mozFullScreen
+            * */
+
+            // 判断是否是全屏
+            var isFull = document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.webkitIsFullScreen || document.mozFullScreen;
+            if (isFull) {
+                // 全屏状态
+                playerNode.style.backgroundColor = "#000";
+
+
+            } else {
+                // 非全屏状态 
+                fullscreenBtnNode.classList.remove('icon-suoxiao');
+                fullscreenBtnNode.classList.add('icon-quanping');
+                playerNode.style.backgroundColor = "#383838";
+
+                isFullScreen = false;
+            }
+        }
+
+
+
+        /************************全局函数***************************************/
+
+        /*progressSliderMove 事件监听的函数*/
+        function progressSliderMove(event) {
+            //计算进度条最大可设置值
+            var maxWidth = progressNode.clientWidth - progressSliderNode.offsetWidth;
+            //计算滑块位置
+            var left = event.clientX - progressSliderNode.eleLeft - progressNode.offsetLeft;
+            if (left < 0) {
+                left = 0;
+            } else if (left > maxWidth) {
+                left = maxWidth;
+            }
+            setSlider(left, maxWidth);
+
+        }
+        /*volumeSlideMove   事件监听函数*/
+        function volumeSlideMove() {
+            //计算进度条最大可设置值
+            var maxWidth = volProgressNode.clientWidth - volProgressSliderNode.offsetWidth;
+            //计算滑块位置
+            var left = event.clientX - volProgressSliderNode.eleLeft - volProgressNode.offsetLeft;
+            if (left < 0) {
+                left = 0;
+            } else if (left > maxWidth) {
+                left = maxWidth;
+            }
+            setVolSlider(left, maxWidth);
+        }
+        /*setSlider 设置进度条函数
+        *left   进度条位置
+        *maxWidth   最大位置
+        */
+        function setSlider(left, maxWidth) {
+            //设置进度条
+            progressSliderNode.style.left = progressPlayNode.style.width = left + 'px';
+            //设置进度
+            video.currentTime = video.duration * (left / maxWidth);
+
+        }
+        /*setVolSlider 设置音量进度条函数
+        *left   进度条位置
+        *maxWidth   最大位置
+        */
+        function setVolSlider(left, maxWidth) {
+            //设置进度条
+            volProgressSliderNode.style.left = volProgressPinkNode.style.width = left + 'px';
+            //设置进度
+            video.volume = 1 * (left / maxWidth);
+            volumneSize = video.volume;
+
+        }
+        //setTime
+        function setTime() {
+            //设置播放时间
+            var allHours = parseInt(video.duration / 60 / 60);
+            var allMins = parseInt(video.duration / 60) - allHours * 60;
+            var allSecs = parseInt(video.duration) - allHours * 60 * 60 - allMins * 60;
+            var nowHours = parseInt(video.currentTime / 60 / 60);
+            var nowMins = parseInt(video.currentTime / 60) - nowHours * 60;
+            var nowSecs = parseInt(video.currentTime) - nowHours * 60 * 60 - nowMins * 60;
+            allTimeNode.innerText = timeString(allHours, allMins, allSecs);
+            nowTimeNode.innerText = timeString(nowHours, nowMins, nowSecs);
+        }
+        //时间格式转换
+        function timeString(hours, mins, secs) {
+            var hour = hours >= 10 ? hours : '0' + hours;
+            var min = mins >= 10 ? mins : '0' + mins;
+            var sec = secs >= 10 ? secs : '0' + secs;
+            return hour + ':' + min + ':' + sec;
+        }
+    })()
+</script>
+
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script type="text/javascript">
+		function main(stus) {
+			var score = [];
+			for(var i = 0;i<stus;i++) {
+				score[i] = prompt('请输入第'+(i+1)+'个学生分数');
+			}
+			console.log('学生总数是'+stus);
+			console.log('学生最高分是'+max(score));
+			console.log('学生平均分是'+avg(score));
+			console.log('学生从大到小分数顺序'+sx(score));
+			
+		}
+		function max(arr){
+			var max = arr[0];
+			for(var i = 0;i<arr.length;i++){
+				if(max < arr[i+1]){
+					max = arr[i+1];
+				}
+			}
+			return max;
+		}
+		function avg(arr) {
+			var sum = 0;
+			for(var i = 0;i<arr.length;i++){
+				sum += parseInt(arr[i]);
+			}
+			return sum/arr.length;
+		}
+		function sx(arr) {
+			for(var i = 0;i<arr.length-1;i++){
+				for(var j = 0;j<arr.length-1-i;j++){
+					if(arr[j]<arr[j+1]) {
+						var temp = arr[j];
+						arr[j] = arr[j+1];
+						arr[j+1] = temp;
+					}
+				}
+			}
+			return arr;
+		}
+		main(prompt('请输入个学生人数'));
+	</script>
+</html>

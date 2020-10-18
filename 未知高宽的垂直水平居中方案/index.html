@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title></title>
+<style type="text/css">
+/*设置时钟的样子*/
+.warp{
+width: 580px;
+height: 580px;
+background: black;
+margin: 100px auto;
+border-radius: 295px;
+}
+.div1{
+width: 500px;
+height: 500px;
+background: lavender;
+position: relative;
+top: 40px;
+left: 40px;
+border-radius: 250px;
+}
+.div1_1{
+/*作为时针*/
+width: 130px;
+height: 30px;
+background: black;
+position: absolute;
+top: 250px;
+left: 250px;
+border-top-right-radius: 10px;
+border-bottom-right-radius: 10px;
+/*指定旋转的中心为左边*/
+transform-origin: left center;
+/*时间为3600s ，但这里为了看效果我设置成60s*/
+animation: 60s m linear infinite;
+}
+.div1_2{
+/*作为分针*/
+width: 230px;
+height: 30px;
+background: black;
+position: absolute;
+top: 250px;
+left: 250px;
+border-top-right-radius: 10px;
+border-bottom-right-radius: 10px;
+/*指定旋转的中心为左边*/
+transform-origin: left center;
+/*时间为60s ，但这里为了看效果我设置成10s*/
+animation: 10s s linear infinite;
+}
+.div3{
+position: absolute;
+width: 50px;
+height: 50px;
+border-radius: 25px;
+top: 240px;
+left: 230px;
+background: yellow;
+}
+/*让分针和秒针绕右边旋转360deg*/
+@keyframes m{
+from{}
+to{ transform: rotateZ(360deg);}
+}
+@keyframes s{
+from{}
+to{ transform: rotateZ(360deg);}
+}
+
+</style>
+</head>
+<body>
+<div class="warp">
+<div class="div1">
+<div class="div1_1">
+
+</div>
+<div class="div1_2">
+
+</div>
+<div class="div3">
+
+</div>
+</div>
+</div>
+
+</body>
+</html>

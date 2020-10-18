@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>放大镜</title>
+		<link rel="stylesheet" type="text/css" href="./css/reset.css"/>
+		<link rel="stylesheet" type="text/css" href="./css/index.css"/>
+	</head>
+	<style type="text/css">
+		#app {
+			width: 700px;
+			height: 600px;
+			position: absolute;
+			top: 0;
+			bottom: 0;
+			left: 0;
+			right: 0;
+			margin: auto;
+			border: 1px solid;
+		}
+		#warp-img{
+			width: 300px;
+			height: 500px;
+			background-color: aliceblue;
+			position: absolute;
+			top: 0;
+			left: 0;
+			border: 2px solid aquamarine;
+		}
+		#warp-img2{
+			display: none;
+			width: 300px;
+			height: 500px;
+			background-color: aliceblue;
+			position: absolute;
+			top: 0;
+			right: 0;
+			border: 2px solid aquamarine;
+			overflow: hidden;
+		}
+		#warp-img .block{
+			display: none;
+			width: 60px;
+			height: 100px;
+			background-color: rgba(0,0,255,.2);
+			position: absolute;
+			top: 0;
+			left: 0;
+			z-index: 1;
+		}
+		#warp-img2 .big,.small{
+			position: absolute;
+			top: 0;
+			left: 0;
+		}
+		#app #warp-img2 .big {
+			width: 1500px;
+			height: 2500px;
+			top: 0;
+			left: 0;
+		}
+		#app .nav {
+			list-style: none;
+			position: absolute;
+			bottom: 0;
+			left: 20px;
+			padding: 0;
+			margin: 0;
+		}
+		#app .nav li, #app .nav li > img {
+			width: 45px;
+			height: 75px;
+			float: left;
+		}
+		#app .nav li {
+			margin: 10px 20px;
+			border: 1px solid transparent;
+		}
+		#app .nav li:first-child {
+			border: 1px solid aqua;
+		}
+		#app .nav li:hover {
+			border: 1px solid aqua;
+		}
+	</style>
+	<body>
+		<div id="warp">
+			<div id="app">
+				<div id="warp-img">
+					<div class="block">
+					</div>
+					<img class="small" src="./img/small-1.jpg" >
+				</div>
+				<div id="warp-img2">
+					<div>
+						<img class="big" src="./img/big-1.jpg" >
+					</div>
+				</div>
+				<ul class="nav">
+					<li class="item" data-big-src="./img/big-1.jpg" data-small-src="./img/small-1.jpg">
+						<img src="./img/small-1.jpg" >
+					</li>
+					<li class="item" data-big-src="./img/big-2.jpg" data-small-src="./img/small-2.jpg">
+						<img src="./img/small-2.jpg" >
+					</li>
+					<li class="item" data-big-src="./img/big-3.jpg" data-small-src="./img/small-3.jpg">
+						<img src="./img/small-3.jpg" >
+					</li>
+				</ul>
+			</div>
+			
+		</div>	
+	</body>
+	<script type="text/javascript">
+		window.onload = function(){
+			document.addEventListener("mousedown",function(ev){
+				ev = ev||event;
+				ev.preventDefault();
+			})
+			//实现放大镜
+			function fdj(){
+				var warpNode = document.querySelector("#app #warp-img");
+				var blockNode = document.querySelector("#app #warp-img .block");
+				var bigWarpNode = document.querySelector("#app #warp-img2");
+				var bigImg = document.querySelector("#app #warp-img2 .big");
+				var T,L,maxT,maxL;
+				warpNode.addEventListener("mouseenter",function(){
+					blockNode.style.display = "block";
+					bigWarpNode.style.display = "block"
+				})
+				warpNode.addEventListener("mousemove",function(ev){
+					ev = ev || event;
+					T = ev.clientY - warpNode.getBoundingClientRect().y - parseInt(window.getComputedStyle(warpNode).borderTop) - blockNode.offsetHeight/2;
+					L = ev.clientX - warpNode.getBoundingClientRect().x - parseInt(window.getComputedStyle(warpNode).borderLeft) - blockNode.offsetWidth/2;
+					//最小
+					T = T < 0 ? 0:T;
+					L = L < 0 ? 0:L;
+					//最大
+					maxT = warpNode.clientHeight - blockNode.offsetHeight;
+					maxL = warpNode.clientWidth - blockNode.offsetWidth;
+					T = T > maxT ? maxT:T;
+					L = L > maxL ? maxL:L;
+					blockNode.style.top = T  + "px";
+					blockNode.style.left = L  + "px";
+					//big图片位置
+					bigTop = -(T/warpNode.clientHeight)*bigImg.clientHeight;
+					bigLeft = -(L/warpNode.clientWidth)*bigImg.clientWidth;
+					bigImg.style.top = bigTop+"px";
+					bigImg.style.left = bigLeft+"px";
+				})
+				warpNode.addEventListener("mouseleave",function(){
+					blockNode.style.display = "none";
+					bigWarpNode.style.display = "none";
+				})
+			}
+			fdj();
+			//实现选项卡切换
+			function xxk(){
+				var liNodes = document.querySelectorAll("#app .nav .item");
+				var smallImg = document.querySelector("#warp-img .small");
+				var bigImg = document.querySelector("#warp-img2 .big");
+				liNodes.forEach(function(item,index){
+					item.onclick = function(){
+						liNodes.forEach(function(item){
+							item.style.borderColor = "transparent";
+						})
+						item.style.borderColor = "aqua"
+						smallImg.src = item.dataset.smallSrc;
+						bigImg.src = item.dataset.bigSrc;
+					}
+				})
+			}
+			xxk();
+		}
+	</script>
+</html>

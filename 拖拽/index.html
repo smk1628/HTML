@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>拖拽</title>
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+    }
+
+    html,
+    body {
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+    }
+
+    #box {
+        position: absolute;
+        width: 100px;
+        height: 100px;
+        background-color: red;
+    }
+</style>
+
+<body>
+    <div id="box"></div>
+</body>
+<script>
+    (function () {
+        //获取元素节点
+        var boxNode = document.querySelector('#box');
+        //定义鼠标按下事件
+        boxNode.onmousedown = function (even) {
+            //获取鼠标按下时距元素的距离
+            var evenLeft = even.offsetX;
+            var evenTop = even.offsetY;
+            //console.log(evenLeft, evenTop);
+            //定义鼠标移动事件
+            document.onmousemove = function (even) {
+                //移动时元素移动后的坐标 = 鼠标位于视窗的坐标 - 鼠标按下时位于元素的坐标
+                var boxX = even.clientX - evenLeft;
+                var boxY = even.clientY - evenTop;
+                //限定元素移动范围
+                if (boxX < 0) {
+                    boxX = 0;
+                } else if (boxX > window.innerWidth - boxNode.offsetWidth) {
+                    boxX = window.innerWidth - boxNode.offsetWidth;
+                }
+                if (boxY < 0) {
+                    boxY = 0;
+                } else if (boxY > window.innerHeight - boxNode.offsetHeight) {
+                    boxY = window.innerHeight - boxNode.offsetHeight;
+                }
+                //改变元素定位坐标移动元素
+                boxNode.style.left = boxX + 'px';
+                boxNode.style.top = boxY + 'px';
+                //console.log(boxX, boxY);
+            }
+            //鼠标松开清空移动事件
+            document.onmouseup = function () {
+                document.onmousemove = null;
+            }
+        }
+    })()
+</script>
+
+</html>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>发廊</title>
+</head>
+<style>
+    * {
+        padding: 0;
+        margin: 0;
+    }
+
+    html,
+    body {
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+    }
+
+    #wrap {
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+    }
+
+    #wrap .app {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 50px;
+        height: 300px;
+        border: 2px solid;
+        overflow: hidden;
+    }
+
+    @keyframes move {
+        from {
+            top: 0px;
+        }
+
+        to {
+            top: -300px;
+        }
+    }
+
+    #wrap .deng {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 50px;
+        height: 600px;
+        background-image: repeating-linear-gradient(-45deg, black 10px, black 25px, white 25px, white 40px);
+        animation: move 6s linear infinite;
+    }
+</style>
+
+<body>
+    <div id="wrap">
+        <div class="app">
+            <div class="deng"></div>
+        </div>
+    </div>
+</body>
+
+</html>

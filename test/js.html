@@ -1,0 +1,101 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+	<HEAD>
+
+		<TITLE>让Alert弹窗只弹出一次</TITLE>
+
+	</HEAD>
+
+	<BODY>
+
+		<script language=javascript>
+			function getCookie(name) {
+
+				var cookiefound = false
+
+				var start = 0
+
+				var end = 0
+
+				var cookiestring = document.cookie;
+
+				var i = 0;
+
+				while (i <= cookiestring.length)
+
+				{
+
+					start = i
+
+					end = start + name.length
+
+					if (cookiestring.substring(start, end) == name)
+
+					{
+						cookiefound = true;
+
+						break;
+
+					}
+
+					i++;
+
+				}
+
+				if (cookiefound == true)
+
+				{
+
+					start = end + 1;
+
+					end = cookiestring.indexOf(";", start);
+
+					if (end < start)
+
+					{
+
+						end = cookiestring.length;
+					}
+
+					return cookiestring.substring(start, end);
+
+				}
+
+				return "";
+
+			}
+
+
+
+			function newcookie(id, value, guoqi)
+
+			{
+
+				var expires = new Date()
+
+				expires.setTime(expires.getTime() + 1) //30为天数，可改为任意数字
+
+				var expiryDate = expires.toGMTString();
+
+				document.cookie = id + "=" + value + ";expires=" + expiryDate
+
+			}
+
+
+
+			if (getCookie("Alerted") == "") {
+
+				alert("弹出了")
+
+				newcookie("Alerted", "yes")
+
+			} else
+
+			{}
+		</script>
+
+	</BODY>
+
+</HTML>

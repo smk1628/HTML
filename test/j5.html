@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<!-- <style type="text/css">
+		#app {
+			width: 100px;
+			height: 100px;
+			background-color: #FFFF00;
+			text-align: center;
+			line-height: 100px;
+			margin: 0 auto;
+			
+			position: absolute;
+			top: 0;
+			right: 0;
+			bottom: 0;
+			left: 0;;
+			margin: auto;
+		}
+	</style> -->
+	<body>
+		<!-- <div id="app">
+			app
+		</div>
+		<div class="item">a</div>
+		<div class="item">b</div>
+		<div class="item">c</div>
+		<div class="item">d</div>
+		<ul id="lists">
+			<li>1</li>
+			<li>2</li>
+			<li class="laosan">3</li>
+			<li>4</li>
+			<li class="laosan">5</li>
+			
+		</ul>
+		<form action="xxx" method="post">
+			<input type="text" name = 'username' value="" />
+			<input type="submit" value="submit"/>
+		</form> -->
+		<!-- <div id="app" class="item" data-zdy="zdy" data-zdy2="zdy2">
+			app_div
+			<span>
+				ssss_span
+			</span>
+		</div> -->
+		<ul id="lists">
+			<li>1</li>
+			<li>2</li>
+			<li>3</li>
+		</ul>
+	</body>
+	<script type="text/javascript">
+		//通过id获取元素
+		// var appNode = document.getElementById('app');
+		// console.log(appNode); //结构体
+		// var items = document.getElementsByClassName('item');
+		//获得HTMLCollection 伪数组
+		//console.log(items); //HTMLCollection(4) [div.item, div.item, div.item, div.item]
+		// var arr = ['a','b','c','d'];
+		// arr.forEach(function(i,index,arr){
+		// 	console.log(i);
+		// });
+		//伪数组转真数组
+		//items = Array.prototype.slice.call(items);
+		//forEach 获取元素
+		//items.forEach(function(item){
+		//	console.log(item); 
+		//});
+		// var liNodes = document.getElementsByTagName('li');
+		// liNodes = Array.prototype.slice.call(liNodes);
+		// liNodes.forEach(function(li){
+		// 	console.log(li);
+		// })
+		// var listNode = document.getElementById('lists');
+		// Array.prototype.slice.call(listNode.children).forEach(function(list){
+		// 	console.log(list);
+		// });
+		// console.log(listNode.childNodes);
+		// console.log(listNode.children);
+		// var listNode = document.getElementById('lists');
+		// var laosanNodes = listNode.getElementsByClassName('laosan');
+		// var laosan = laosanNodes[0];
+		// console.log(laosan.nextSibling); //下一个节点包括文本节点
+		// console.log(laosan.nextElementSibling); //下一个节点不包括文本节点
+		// console.log(laosan.previousSibling); //上一个节点 包括文本节点
+		// console.log(laosan.previousElementSibling); //上一个节点 不包括文本节点
+		// console.log(laosan.parentNode);
+		// console.log(laosan.parentElement);
+		// var laosans = document.querySelectorAll('#lists .laosan');
+		// console.log(laosans);
+		// laosans.forEach(function(laosan){
+		// 	console.log(laosan);
+		// });
+		// var userNode = document.getElementsByName('username');
+		// console.log(userNode[0]);
+		//var appNode = document.querySelector("#app");
+		// console.log(appNode.attributes[2].nodeValue);
+		// console.log(appNode.getAttribute('id'));
+		// console.log(appNode.getAttributeNames());
+		// console.log(appNode.getAttributeNode('zdy').nodeValue);
+		// console.log(appNode.id); //"app"
+		// console.log(appNode.zdy); //undefined
+		// console.log(typeof appNode.hasAttributes("zdy"));
+		// console.dir(appNode.classList);
+		// appNode.classList.add("item2");
+		// appNode.classList.remove("item2");
+		// console.log(appNode.classList.item(0));
+		//appNode.classList.toggle("item",false);
+		//appNode.classList.toggle("item",false);
+		//appNode.classList.toggle("item3",true);
+		//appNode.classList.toggle("item3");
+		//console.log(appNode.classList.contains("item"));
+		// appNode.id = "app2";
+		// console.log(appNode.id);
+		// console.log(appNode.dataset);
+		// console.log(appNode.innerText);
+		// console.log(appNode.innerHTML);
+		// console.log(appNode.textContent);
+		window.onload = function(){
+			// var divNode = document.createElement("div");
+			// var bodyNode = document.querySelector("body");
+			// bodyNode.appendChild(divNode);
+			//var listNode = document.querySelector("#lists");
+			// var liNode = document.createElement("span");
+			// var ss = document.querySelector("#lists li");
+			// var targetNode = document.querySelectorAll("#lists li");
+			// var liNode2 = targetNode[1];
+			//listNode.insertAdjacentElement('afterbegin',liNode);
+			// Element.prototype.insertAfter = function(newElement,targetElement){
+			// 	var parent = targetElement.parentNode;
+			// 	if(newElement === targetElement){
+			// 	            return null;
+			// 	        }
+			// 	if(parent.lastChild == targetElement){
+			// 		parent.appendChild(newElement);
+			// 	}else {
+			// 		parent.insertBefore(newElement,targetElement.nextElementSibling);
+			// 	}
+			// 	return newElement;
+			// }
+			//console.log(targetNode[1]);
+			//console.log(liNode);
+			//console.log(listNode.insertAfter(liNode2,targetNode[1]));
+			//console.log(targetNode[1]);
+			//console.log(liNode2.childNodes[0]);
+			//ss.insertAfter(liNode,liNode2.childNodes[0]);
+			//console.log(listNode.remove());
+			//ss.insertBefore(liNode,liNode2.childNodes[0]);
+			//console.log(listNode.insertBefore(liNode,targetNode[1]));
+		}
+			// var ulNode = document.querySelector("ul");
+			// ulNode.setAttribute("name","asd")
+			// var newAttr = document.createAttribute("name")
+			// //console.log(ulNode.setAttributeNode(newAttr));
+			// //console.log(ulNode.setAttributeNode(newAttr));
+			// var textNode = document.createTextNode("1234");
+			// ulNode.appendChild(textNode);
+			// console.log(document.nodeType);
+			var arr = [1,2,3,4,5];
+			console.log(arr.slice(0,2));
+	</script>
+</html>
