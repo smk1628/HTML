@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>图案画笔</title>
+</head>
+<style>
+    #myCanvas {
+        display: block;
+        margin: 0 auto;
+        border: 1px solid black;
+        background: url(image/bg.jpg) repeat;
+        background-size: 5%;
+    }
+</style>
+
+<body>
+    <canvas id="myCanvas"></canvas>
+</body>
+<script>
+    (function () {
+        //初始化样式
+        var clearWidth = 10;
+        //设置描边宽度和颜色形参
+        var canvas = document.querySelector('#myCanvas');
+        var ctx = canvas.getContext('2d');
+        //设置画布大小
+        canvas.width = 600;
+        canvas.height = 400;
+        //绘制目标图像
+        ctx.beginPath();
+        ctx.fillStyle = '#fff';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.globalCompositeOperation = 'destination-out';
+
+        //绘制原图像
+        canvas.onmousedown = function (event) {
+            //鼠标按下事件
+            ctx.beginPath();
+            //开启路径
+            ctx.moveTo(event.offsetX, event.offsetY);
+            //设置起点
+            document.onmousemove = function (event) {
+                //设置连接点
+                ctx.lineTo(event.clientX - canvas.offsetLeft, event.clientY - canvas.offsetTop);
+                //设置描边宽度
+                ctx.lineWidth = clearWidth;
+                ctx.lineCap = 'round';
+                //开启描边
+                ctx.stroke();
+            }
+        }
+        document.onmouseup = function () {
+            //鼠标松开清空onmousemove事件
+            this.onmousemove = null;
+        }
+    })()
+
+</script>
+
+</html>

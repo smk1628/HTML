@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>绘制饼图</title>
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+    }
+
+    html,
+    body {
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+    }
+
+    body {
+        background-color: black;
+    }
+</style>
+
+<body>
+    <canvas id="myCanvas"></canvas>
+</body>
+<script>
+    (function () {
+        //获取Canvas元素
+        var canvasNode = document.querySelector('#myCanvas');
+        //设置画布宽高
+        canvasNode.width = window.innerWidth; //document.documentElement.clientWidth;
+        canvasNode.height = window.innerHeight;
+        //获取绘图上下文
+        var ctx = canvasNode.getContext('2d');
+        //初始化画布
+        ctx.textBaseline = 'middle';
+        ctx.font = '20px 微软雅黑';
+
+        //定义数据
+        var data = [
+            { title: '小米', value: 0.35, color: '#f90' },
+            { title: '华为', value: 0.2, color: 'aqua' },
+            { title: 'OPPO', value: 0.25, color: 'yellow' },
+            { title: '三星', value: 0.10, color: 'pink' },
+            { title: '苹果', value: 0.05, color: 'blue' },
+            { title: '其他', value: 0.05, color: 'gray' }
+        ];
+
+        //定义圆形 半径
+        var x = canvasNode.width / 2, y = canvasNode.height / 2, r = 200;
+
+        //绘制饼图
+        var startAngle = 0;   //定义起始弧度
+        for (var i = 0; i < data.length; i++) {
+            //计算扇形弧度
+            var angle = data[i].value * Math.PI * 2;
+            //计算结束弧度
+            var endAngle = startAngle + angle;
+            //计算文字坐标
+            var textAngle = startAngle + angle / 2;
+            var textX = x + (r + 15) * Math.cos(textAngle);
+            var textY = y + (r + 15) * Math.sin(textAngle);
+            ctx.beginPath(); //开启路径
+            ctx.moveTo(x, y); //设置起点
+            ctx.arc(x, y, r, startAngle, endAngle); //绘制饼图
+            //判断文字对齐方式
+            if (textAngle > Math.PI / 2 && textAngle < Math.PI * 1.5) {
+                ctx.textAlign = 'end';
+            } else {
+                ctx.textAlign = 'start';
+            }
+            //设置填充样式
+            ctx.fillStyle = data[i].color;
+            //填充图形文字
+            ctx.fillText(data[i].title + ' ' + data[i].value * 100 + '%', textX, textY);
+            ctx.fill();
+            //重新设置起始弧度
+            startAngle = endAngle;
+        }
+
+
+    })()
+
+</script>
+
+</html>

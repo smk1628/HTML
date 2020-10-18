@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>签名板</title>
+</head>
+<style>
+    #myCanvas {
+        display: block;
+        margin: 0 auto;
+        background-color: aqua;
+
+    }
+</style>
+
+<body>
+    <canvas id="myCanvas" width="600px" height="400px"></canvas>
+</body>
+<script>
+    (function () {
+        //定义签名板函数
+        function qianmingban(width = 3, color = 'green') {
+            //设置描边宽度和颜色形参
+            var canvas = document.querySelector('#myCanvas');
+            var ctx = canvas.getContext('2d');
+            canvas.onmousedown = function (event) {
+                //鼠标按下事件
+                ctx.beginPath();
+                //开启路径
+                ctx.moveTo(event.offsetX, event.offsetY);
+                //设置起点
+                document.onmousemove = function (event) {
+                    //设置连接点
+                    ctx.lineTo(event.clientX - canvas.offsetLeft, event.clientY - canvas.offsetTop);
+                    //设置描边宽度
+                    ctx.lineWidth = width;
+                    //设置描边颜色
+                    ctx.strokeStyle = color;
+                    //开启描边
+                    ctx.stroke();
+                }
+            }
+            document.onmouseup = function () {
+                //鼠标松开清空onmousemove事件
+                this.onmousemove = null;
+            }
+        }
+        //执行签名板函数
+        qianmingban();
+    })()
+
+</script>
+
+</html>
